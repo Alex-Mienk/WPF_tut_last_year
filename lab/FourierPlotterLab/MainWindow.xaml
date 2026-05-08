@@ -1,0 +1,96 @@
+<Window x:Class="FourierPlotterLab.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Fourier Plotter - Lab"
+        Width="1000"
+        Height="650"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        StateChanged="Window_StateChanged">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Click="NewMenuItem_Click" />
+                <MenuItem Header="_Open" Click="OpenMenuItem_Click" />
+                <MenuItem Header="_Save" Click="SaveMenuItem_Click" />
+            </MenuItem>
+            <MenuItem Header="E_xit" Click="ExitMenuItem_Click" />
+        </Menu>
+
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="17*" />
+                <RowDefinition Height="3*" />
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0"
+                      Grid.Column="0"
+                      Header="Image"
+                      Margin="0,0,8,8">
+                <Border Background="White"
+                        BorderBrush="#B8B8B8"
+                        BorderThickness="1">
+                    <Image x:Name="PlotImage"
+                           Stretch="None"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch" />
+                </Border>
+            </GroupBox>
+
+            <GroupBox Grid.Row="0"
+                      Grid.Column="1"
+                      Header="Circles"
+                      Margin="8,0,0,8">
+                <DataGrid x:Name="CirclesDataGrid"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="True"
+                          CanUserDeleteRows="True"
+                          ItemsSource="{Binding Circles}"
+                          CellEditEnding="CirclesDataGrid_CellEditEnding">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Radius"
+                                            Binding="{Binding Radius, UpdateSourceTrigger=PropertyChanged}"
+                                            Width="*" />
+                        <DataGridTextColumn Header="Frequency"
+                                            Binding="{Binding Frequency, UpdateSourceTrigger=PropertyChanged}"
+                                            Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+
+            <ProgressBar x:Name="Progress"
+                         Grid.Row="1"
+                         Grid.Column="0"
+                         Minimum="0"
+                         Maximum="100"
+                         Height="28"
+                         Margin="0,8,8,0"
+                         VerticalAlignment="Center" />
+
+            <GroupBox Grid.Row="1"
+                      Grid.Column="1"
+                      Header="Controls"
+                      Margin="8,8,0,0">
+                <StackPanel VerticalAlignment="Center">
+                    <Button Content="Start"
+                            Margin="4"
+                            Padding="8,4"
+                            Click="StartButton_Click" />
+                    <Button x:Name="PauseButton"
+                            Content="Pause"
+                            Margin="4"
+                            Padding="8,4"
+                            Click="PauseButton_Click" />
+                    <Button Content="Reset"
+                            Margin="4"
+                            Padding="8,4"
+                            Click="ResetButton_Click" />
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </DockPanel>
+</Window>
